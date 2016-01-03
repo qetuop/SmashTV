@@ -35,7 +35,7 @@ private:
     static const int SCREEN_HEIGHT = 768;
 
     //The frame rate
-    const int FRAMES_PER_SECOND = 60;
+    const int FRAMES_PER_SECOND = 10;
     //The frame rate regulator
     Timer fps;
 

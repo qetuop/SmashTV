@@ -12,6 +12,11 @@
  */
 #include <SDL2/SDL.h>
 
+#include <memory>
+#include <vector>
+
+#include "Bullet.h"
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -38,6 +43,10 @@ extern "C" {
         int yVel;
 
         double direction;
+        
+        bool firing;
+        
+        std::vector<std::shared_ptr<Bullet>> mBulletVector;
 
 
     public:
@@ -48,6 +57,9 @@ extern "C" {
 
         //Moves the dot
         void move();
+        
+        void fireBullet();
+        void updateBullets();
 
 
     };

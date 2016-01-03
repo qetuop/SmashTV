@@ -6,6 +6,7 @@
                    projectFiles="true">
       <logicalFolder name="include" displayName="include" projectFiles="true">
         <itemPath>include/App.h</itemPath>
+        <itemPath>include/Bullet.h</itemPath>
         <itemPath>include/Event.h</itemPath>
         <itemPath>include/FileManager.h</itemPath>
         <itemPath>include/Helper.h</itemPath>
@@ -14,7 +15,7 @@
         <itemPath>include/Stringify.h</itemPath>
         <itemPath>include/Texture.h</itemPath>
         <itemPath>include/TextureBank.h</itemPath>
-        <itemPath>src/Timer.h</itemPath>
+        <itemPath>include/Timer.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -26,11 +27,10 @@
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <itemPath>src/App.cpp</itemPath>
-        <itemPath>src/ControllerTest.cpp</itemPath>
+        <itemPath>src/Bullet.cpp</itemPath>
         <itemPath>src/Event.cpp</itemPath>
         <itemPath>src/FileManager.cpp</itemPath>
         <itemPath>src/Helper.cpp</itemPath>
-        <itemPath>src/Helper.h</itemPath>
         <itemPath>src/Player.cpp</itemPath>
         <itemPath>src/Stringify.cpp</itemPath>
         <itemPath>src/Texture.cpp</itemPath>
@@ -81,6 +81,8 @@
       </compileType>
       <item path="include/App.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/Bullet.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/Event.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/FileManager.h" ex="false" tool="3" flavor2="0">
@@ -97,15 +99,17 @@
       </item>
       <item path="include/TextureBank.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/Timer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/App.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bullet.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Event.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/FileManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Helper.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Helper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -116,8 +120,6 @@
       <item path="src/TextureBank.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Timer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Timer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -144,6 +146,8 @@
       </compileType>
       <item path="include/App.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/Bullet.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/Event.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/FileManager.h" ex="false" tool="3" flavor2="0">
@@ -160,17 +164,17 @@
       </item>
       <item path="include/TextureBank.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/Timer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/App.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/ControllerTest.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Bullet.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Event.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/FileManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Helper.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Helper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -181,8 +185,6 @@
       <item path="src/TextureBank.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Timer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Timer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>

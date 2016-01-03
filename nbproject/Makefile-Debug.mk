@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/App.o \
+	${OBJECTDIR}/src/Bullet.o \
 	${OBJECTDIR}/src/Event.o \
 	${OBJECTDIR}/src/FileManager.o \
 	${OBJECTDIR}/src/Helper.o \
@@ -65,16 +66,21 @@ LDLIBSOPTIONS=-lSDL2 -lSDL2_image -lSDL2_ttf
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/smash
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/smashtv
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/smash: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/smashtv: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/smash ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/smashtv ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/src/App.o: src/App.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Iinclude -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/App.o src/App.cpp
+
+${OBJECTDIR}/src/Bullet.o: src/Bullet.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Bullet.o src/Bullet.cpp
 
 ${OBJECTDIR}/src/Event.o: src/Event.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -127,7 +133,7 @@ ${OBJECTDIR}/src/main.o: src/main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/smash
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/smashtv
 
 # Subprojects
 .clean-subprojects:

@@ -48,7 +48,7 @@
 MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
-
+res_dir=${CND_DISTDIR}/${CONF}/${CND_PLATFORM_${CONF}}/Textures
 
 # build
 build: .build-post
@@ -57,7 +57,10 @@ build: .build-post
 # Add your pre 'build' code here...
 
 .build-post: .build-impl
-# Add your post 'build' code here...
+	$(MKDIR) -p $(res_dir)
+	$(CP) Textures/dot.png $(res_dir)
+	$(CP) Textures/arrow.png $(res_dir)
+	$(CP) Textures/bullet.png $(res_dir)
 
 
 # clean

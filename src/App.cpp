@@ -4,6 +4,7 @@
 #include "Event.h"
 #include "Helper.h"
 #include "Player.h"
+#include "Bullet.h"
 
 App App::Instance;
 
@@ -102,6 +103,8 @@ void App::Loop() {
         mPlayerPtr.get()->handle_input(mGameController);
         mPlayerPtr.get()->move();
 
+        mPlayerPtr.get()->updateBullets();
+
     }//gameController present
 }
 
@@ -137,6 +140,18 @@ void App::Render() {
     } else {
         logSDLError(std::cout, "App::Render");
     }
+
+    // Bullets!
+    texture = TextureBank::Get("bullet");
+    if (texture != nullptr) {
+        for (auto&& bullet : mPlayerPtr.get()->mBulletVector) {
+            if (bullet != nullptr) // need to remove from vector
+                texture->render(Renderer, bullet.get()->x, bullet.get()->y);
+        }
+    } else {
+        logSDLError(std::cout, "App::Render");
+    }
+
 
     SDL_RenderPresent(Renderer);
 }
