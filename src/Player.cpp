@@ -8,10 +8,14 @@
 #include "App.h"
 #include <iostream>
 
-Player::Player() {
+#include <vector>
+
+static int doOnce = 1;
+
+Player::Player( ) {
     std::cout << "Player created" << std::endl;
-    x = 0;
-    y = 0;
+    x = SCREEN_WIDTH / 2;
+    y = SCREEN_HEIGHT / 2;
 
     xVel = 0;
     yVel = 0;
@@ -19,11 +23,11 @@ Player::Player() {
     firing = false;
 }
 
-Player::~Player() {
+Player::~Player( ) {
     std::cout << "Player destroyed" << std::endl;
 }
 
-void Player::handle_input(SDL_GameController *controller) {
+void Player::handle_input( SDL_GameController *controller ) {
 
     // DPAD
     bool Up = SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_UP);
@@ -48,76 +52,76 @@ void Player::handle_input(SDL_GameController *controller) {
     Sint16 StickRightX = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
     Sint16 StickRightY = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
 
-    //Sint16 StickX = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
-    //Sint16 StickY = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
+    //          -90
+    //     -135  |  -45
+    //         \ | /
+    //    180 -- + --  0
+    //         / | \
+    //     135   |  45
+    //          90
+    //direction = atan2((double) yDir, (double) xDir) * (180.0 / M_PI);
 
-    std::cout << "StickX: " << StickLeftX << ", StickY: " << StickLeftY << std::endl;
-    std::cout << "RightShoulder: " << RightShoulder << std::endl;
-
-    int xDir = 0;
-    int yDir = 0;
-
-    //Left of dead zone
-    if (StickRightX < -JOYSTICK_DEAD_ZONE) {
-        xDir = -1;
-    }//Right of dead zone
-    else if (StickRightX > JOYSTICK_DEAD_ZONE) {
-        xDir = 1;
-    } else {
-        xDir = 0;
+    if ( ( (StickRightX < -JOYSTICK_DEAD_ZONE) || (StickRightX > JOYSTICK_DEAD_ZONE))
+      || ( (StickRightY < -JOYSTICK_DEAD_ZONE) || (StickRightY > JOYSTICK_DEAD_ZONE) ) ) {
+        direction = atan2((double) StickRightY, (double) StickRightX) * (180.0 / M_PI);
+        fireBullet();
     }
 
-    //Below of dead zone
-    if (StickRightY < -JOYSTICK_DEAD_ZONE) {
-        yDir = -1;
-    }//Above of dead zone
-    else if (StickRightY > JOYSTICK_DEAD_ZONE) {
-        yDir = 1;
-    } else {
-        yDir = 0;
+    //std::cout << "direction " << int(direction) << std::endl;
+
+    //if ( doOnce ){   
+    //    std::vector<int> test = {0, 45, 90, 135, 180, -135, -90, -45};
+    //    for (auto b : test) {
+    //        auto bullet = std::make_shared<Bullet>(x, y, b);
+    //        mBullets.push_back(bullet);
+    //    }
+    //    doOnce = 0;
+    //}
+
+    if ( RightShoulder == 1 ) {
+        fireBullet();
     }
 
-
-    direction = atan2((double) yDir, (double) xDir) * (180.0 / M_PI);
+    // ------------------
+    // Player movement
+    //-------------------
 
     // If the X axis is neutral
-    if ((StickLeftX > -JOYSTICK_DEAD_ZONE) && (StickLeftX < JOYSTICK_DEAD_ZONE)) {
+    if ( (StickLeftX > -JOYSTICK_DEAD_ZONE) && (StickLeftX < JOYSTICK_DEAD_ZONE) ) {
         xVel = 0;
     }// Adjust the velocity
     else {
-        if (StickLeftX < 0) {
-            xVel = -DOT_WIDTH / 8;
+        if ( StickLeftX < 0 ) {
+            xVel = -PLAYER_WIDTH / 8;
         } else {
-            xVel = DOT_WIDTH / 8;
+            xVel = PLAYER_WIDTH / 8;
         }
     }
 
     // If the Y axis is neutral
-    if ((StickLeftY > -JOYSTICK_DEAD_ZONE) && (StickLeftY < JOYSTICK_DEAD_ZONE)) {
+    if ( (StickLeftY > -JOYSTICK_DEAD_ZONE) && (StickLeftY < JOYSTICK_DEAD_ZONE) ) {
         yVel = 0;
     }// Adjust the velocity
     else {
-        if (StickLeftY < 0) {
-            yVel = -DOT_HEIGHT / 8;
+        if ( StickLeftY < 0 ) {
+            yVel = -PLAYER_HEIGHT / 8;
         } else {
-            yVel = DOT_HEIGHT / 8;
+            yVel = PLAYER_HEIGHT / 8;
         }
     }
 
-    std::cout << "xVel: " << xVel << ", yVel: " << yVel << ", direction: " << direction << std::endl;
+    //std::cout << "xVel: " << xVel << ", yVel: " << yVel << ", direction: " << direction << std::endl;
 
-    if (RightShoulder == 1) {
-        fireBullet();
-    }
+
 
 } // handle_input
 
-void Player::move() {
+void Player::move( ) {
     //Move the dot left or right
     x += xVel;
 
     //If the dot went too far to the left or right
-    if ((x < 0) || (x + DOT_WIDTH > SCREEN_WIDTH)) {
+    if ( (x < 0) || (x + PLAYER_WIDTH > SCREEN_WIDTH) ) {
         //move back
         x -= xVel;
     }
@@ -126,85 +130,35 @@ void Player::move() {
     y += yVel;
 
     //If the dot went too far up or down
-    if ((y < 0) || (y + DOT_HEIGHT > SCREEN_HEIGHT)) {
+    if ( (y < 0) || (y + PLAYER_HEIGHT > SCREEN_HEIGHT) ) {
         //move back
         y -= yVel;
     }
 
-    std::cout << "x: " << x << ", y: " << y << std::endl;
+    //std::cout << "x: " << x << ", y: " << y << std::endl;
 }
 
-void Player::fireBullet() {
-    std::cout << "Firing bullet" << std::endl;
+void Player::fireBullet( ) {
+
 
     //std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>();
-    auto bullet = std::make_shared<Bullet>();
+    auto bullet = std::make_shared<Bullet>(x+PLAYER_WIDTH/2, y+PLAYER_HEIGHT/2, direction);
 
     // TODO: set these to be the point of the pointer
-    bullet.get()->x = x;
-    bullet.get()->y = y;
-    bullet.get()->direction = direction;
+    //    bullet.get()->x = x;
+    //    bullet.get()->y = y;
+    //    bullet.get()->direction = direction;
 
-    mBulletVector.push_back(bullet);
+    mBullets.push_back(bullet);
 }
 
-void Player::updateBullets() {
-    for (auto&& bullet : mBulletVector) {
-        if ( bullet == nullptr ) // need to remove from vector
-            continue;
+void Player::updateBullets( ) {
 
-        int &x = bullet.get()->x;
-        int &y = bullet.get()->y;
-
-        std::cout << "updateBullets::direction= " << direction << std::endl;
-
-        int RATE = 50;
-
-        switch (int(bullet.get()->direction)) {
-            case 0:
-                x += RATE;
-                break;
-                
-            case 45:
-                x += RATE / 2;
-                y += RATE / 2;
-                break;
-                
-            case 90:
-                y += RATE;
-                break;
-                
-            case 135:
-                x -= RATE / 2;
-                y += RATE / 2;
-                break;
-                
-            case 180:
-                x -= RATE;
-                break;
-
-            case -45:
-                x += RATE / 2;
-                y -= RATE / 2;
-                break;
-                
-            case -90:
-                y -= RATE;
-                break;
-                
-            case -135:
-                x -= RATE / 2;
-                y -= RATE / 2;
-                break;
-        }
-
-
-
-        // hits a wall
-        if ((bullet.get()->x == 0) || (bullet.get()->x == SCREEN_WIDTH)) {
-            bullet = nullptr;
-        } else if ((bullet.get()->y == 0) || (bullet.get()->x == SCREEN_HEIGHT)) {
-            bullet = nullptr;
+    for ( auto bulletItr = mBullets.begin(); bulletItr != mBullets.end(); ) {
+        if ( bulletItr->get()->move() == false ) {
+            bulletItr = mBullets.erase(bulletItr);
+        } else {
+            ++bulletItr;
         }
     }
 }

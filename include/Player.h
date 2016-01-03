@@ -13,7 +13,7 @@
 #include <SDL2/SDL.h>
 
 #include <memory>
-#include <vector>
+#include <list>
 
 #include "Bullet.h"
 
@@ -28,11 +28,12 @@ extern "C" {
     public:
         // TODO: these need to be passed in/set somewhere
 
-        const int JOYSTICK_DEAD_ZONE = 8000;
-        const int DOT_WIDTH = 80;
-        const int DOT_HEIGHT = 80;
-        static const int SCREEN_WIDTH = 1024;
-        static const int SCREEN_HEIGHT = 768;
+        //const int JOYSTICK_DEAD_ZONE = 8000;
+        
+        
+        
+        //static const int SCREEN_WIDTH = 1024;
+        //static const int SCREEN_HEIGHT = 768;
 
         // the offsets
         int x;
@@ -46,7 +47,7 @@ extern "C" {
         
         bool firing;
         
-        std::vector<std::shared_ptr<Bullet>> mBulletVector;
+        std::list<std::shared_ptr<Bullet>> mBullets;
 
 
     public:

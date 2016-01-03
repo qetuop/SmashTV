@@ -116,12 +116,12 @@ void App::Render() {
     // TODO: need to loop through textures?
     Texture* texture = nullptr;
 
+    // TODO: clean this ?arrow -> gun?
     if ((mPlayerPtr.get()->xVel == 0) && (mPlayerPtr.get()->yVel == 0)) {
-        texture = TextureBank::Get("dot");
+        texture = TextureBank::Get("arrow");
     } else {
         texture = TextureBank::Get("arrow");
     }
-
 
     if (texture != nullptr) {
         //texture->Render(0, 0); // You should really check your pointers
@@ -135,18 +135,18 @@ void App::Render() {
         direction = mPlayerPtr.get()->direction;
 
         texture->render(Renderer, x, y, NULL, direction);
-
-
     } else {
         logSDLError(std::cout, "App::Render");
     }
 
     // Bullets!
+    // TODO: move the texture type into the Bullet class?  Just the identifier string bulletType
     texture = TextureBank::Get("bullet");
     if (texture != nullptr) {
-        for (auto&& bullet : mPlayerPtr.get()->mBulletVector) {
-            if (bullet != nullptr) // need to remove from vector
+        for (auto&& bullet : mPlayerPtr.get()->mBullets) {
+            if (bullet != nullptr) {
                 texture->render(Renderer, bullet.get()->x, bullet.get()->y);
+            }
         }
     } else {
         logSDLError(std::cout, "App::Render");

@@ -14,21 +14,27 @@
 #ifndef BULLET_H
 #define BULLET_H
 
+
+
 class Bullet {
+    
 public:
     // the offsets
-        int x;
-        int y;
+    int x;
+    int y;
 
-        //The velocity of the dot
-        int xVel;
-        int yVel;
-        
-        double direction;
-        
+    // The velocity of the bullet
+    int xVel;
+    int yVel;
+
+    double direction;
+
 public:
     Bullet();
+    Bullet(int _x, int _y, double _direction );
     ~Bullet();
+    
+    bool move();
 };
 
 #endif /* BULLET_H */

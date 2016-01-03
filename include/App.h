@@ -12,6 +12,19 @@
 
 #include <memory>
 
+const int JOYSTICK_DEAD_ZONE = 8000;
+
+static const int SCREEN_WIDTH = 1024;
+static const int SCREEN_HEIGHT = 768;
+
+const int PLAYER_WIDTH = 80;
+const int PLAYER_HEIGHT = 80;
+
+const int BULLET_RATE = 50; // TODO: this will be modifable
+
+//The frame rate
+const int FRAMES_PER_SECOND = 60;
+
 ////Screen dimension constants
 //const int SCREEN_WIDTH = 640;
 //const int SCREEN_HEIGHT = 480;
@@ -31,11 +44,6 @@ private:
     SDL_Joystick *mJoystick;
     SDL_GameController *mGameController;
 
-    static const int SCREEN_WIDTH = 1024;
-    static const int SCREEN_HEIGHT = 768;
-
-    //The frame rate
-    const int FRAMES_PER_SECOND = 10;
     //The frame rate regulator
     Timer fps;
 
@@ -49,7 +57,7 @@ private:
     std::shared_ptr<Player> mPlayerPtr;
 
 private:
-//    public:
+    //    public:
     App();
 
     // Capture SDL Events

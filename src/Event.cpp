@@ -38,7 +38,7 @@ void Event::OnEvent(SDL_Event* Event) {
                 }
                 case SDL_WINDOWEVENT_SHOWN:
                 {
-                    std::cout << "SDL_WINDOWEVENT_SHOWN" << std::endl;
+                    //std::cout << "SDL_WINDOWEVENT_SHOWN" << std::endl;
                     break;
                 }
                 case SDL_WINDOWEVENT_HIDDEN:
@@ -149,7 +149,7 @@ void Event::OnEvent(SDL_Event* Event) {
         
         case SDL_CONTROLLERBUTTONDOWN:
         {
-            std::cout << "SDL_CONTROLLERBUTTONDOWN" << std::endl;
+            //std::cout << "SDL_CONTROLLERBUTTONDOWN" << std::endl;
             //OnJoyButtonDown(Event->jbutton.which, Event->jbutton.button);
             //break;
         }
@@ -170,7 +170,7 @@ void Event::OnEvent(SDL_Event* Event) {
         }
         case SDL_JOYBUTTONDOWN:
         {
-            std::cout << "SDL_JOYBUTTONDOWN" << std::endl;
+            //std::cout << "SDL_JOYBUTTONDOWN" << std::endl;
             OnJoyButtonDown(Event->jbutton.which, Event->jbutton.button);
             break;
         }
@@ -191,63 +191,63 @@ void Event::OnExit() {
 }
 
 void Event::OnKeyDown(SDL_Keycode sym, Uint16 mod, Uint16 scancode) {
-    printf("keycode:%d\tmod:%ho\tscancode:%ho pressed!\n", sym, mod, scancode);
+    //printf("keycode:%d\tmod:%ho\tscancode:%ho pressed!\n", sym, mod, scancode);
 }
 
 void Event::OnKeyUp(SDL_Keycode sym, Uint16 mod, Uint16 scancode) {
-    printf("keycode:%d\tmod:%ho\tscancode:%ho unpressed!\n", sym, mod, scancode);
+    //printf("keycode:%d\tmod:%ho\tscancode:%ho unpressed!\n", sym, mod, scancode);
 }
 
 void Event::OnMouseMove(int mx, int my, int relx, int rely, bool Left, bool Right, bool Middle) {
-    printf("x:%d\ty:%d\n", mx, my);
+    //printf("x:%d\ty:%d\n", mx, my);
 }
 
 void Event::OnLButtonDown(int mx, int my) {
-    printf("Left Click pressed in x:%d\ty:%d\n", mx, my);
+    //printf("Left Click pressed in x:%d\ty:%d\n", mx, my);
 }
 
 void Event::OnLButtonUp(int mx, int my) {
-    printf("Left Click unpressed in x:%d\ty:%d\n", mx, my);
+    //printf("Left Click unpressed in x:%d\ty:%d\n", mx, my);
 }
 
 void Event::OnRButtonDown(int mx, int my) {
-    printf("Right Click pressed in x:%d\ty:%d\n", mx, my);
+    //printf("Right Click pressed in x:%d\ty:%d\n", mx, my);
 }
 
 void Event::OnRButtonUp(int mx, int my) {
-    printf("Right Click unpressed in x:%d\ty:%d\n", mx, my);
+    //printf("Right Click unpressed in x:%d\ty:%d\n", mx, my);
 }
 
 void Event::OnMButtonDown(int mx, int my) {
-    printf("Middle Click pressed in x:%d\ty:%d\n", mx, my);
+    //printf("Middle Click pressed in x:%d\ty:%d\n", mx, my);
 }
 
 void Event::OnMButtonUp(int mx, int my) {
-    printf("Middle Click unpressed in x:%d\ty:%d\n", mx, my);
+    //printf("Middle Click unpressed in x:%d\ty:%d\n", mx, my);
 }
 
 void Event::OnMouseFocus() {
-    printf("Mouse entered the window!\n");
+    //printf("Mouse entered the window!\n");
 }
 
 void Event::OnMouseBlur() {
-    printf("Mouse left the window!\n");
+    //printf("Mouse left the window!\n");
 }
 
 void Event::OnInputFocus() {
-    printf("Keyboard Focus on the window!\n");
+    //printf("Keyboard Focus on the window!\n");
 }
 
 void Event::OnInputBlur() {
-    printf("Keyboard lost focus on the window!\n");
+    //printf("Keyboard lost focus on the window!\n");
 }
 
 void Event::OnWindowResized(int data1, int data2) {
-    printf("Window Resized to: width:%d\theight:%d\n", data1, data2);
+    //printf("Window Resized to: width:%d\theight:%d\n", data1, data2);
 }
 
 void Event::OnJoyAxis(Uint8 which, Uint8 axis, Sint16 value) {
-    printf("OnJoyAxis: which:%hho \t axis:%hho \t value:%d\n", which, axis, value);
+    //printf("OnJoyAxis: which:%hho \t axis:%hho \t value:%d\n", which, axis, value);
     //App::GetInstance()->Loop();
 }
 
@@ -264,5 +264,5 @@ void Event::OnJoyButtonUp(Uint8 which, Uint8 button) {
 }
 
 void Event::OnUser(Uint8 type, int code, void* data1, void* data2) {
-    //printf("OnUser: type:%hho\tcode:%d\n", type, code);
+    ////printf("OnUser: type:%hho\tcode:%d\n", type, code);
 }
