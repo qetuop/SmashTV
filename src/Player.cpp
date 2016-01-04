@@ -61,8 +61,8 @@ void Player::handle_input( SDL_GameController *controller ) {
     //          90
     //direction = atan2((double) yDir, (double) xDir) * (180.0 / M_PI);
 
-    if ( ( (StickRightX < -JOYSTICK_DEAD_ZONE) || (StickRightX > JOYSTICK_DEAD_ZONE))
-      || ( (StickRightY < -JOYSTICK_DEAD_ZONE) || (StickRightY > JOYSTICK_DEAD_ZONE) ) ) {
+    if ( ((StickRightX < -JOYSTICK_DEAD_ZONE) || (StickRightX > JOYSTICK_DEAD_ZONE))
+            || ((StickRightY < -JOYSTICK_DEAD_ZONE) || (StickRightY > JOYSTICK_DEAD_ZONE)) ) {
         direction = atan2((double) StickRightY, (double) StickRightX) * (180.0 / M_PI);
         fireBullet();
     }
@@ -142,7 +142,7 @@ void Player::fireBullet( ) {
 
 
     //std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>();
-    auto bullet = std::make_shared<Bullet>(x+PLAYER_WIDTH/2, y+PLAYER_HEIGHT/2, direction);
+    auto bullet = std::make_shared<Bullet>(x + PLAYER_WIDTH / 2, y + PLAYER_HEIGHT / 2, direction);
 
     // TODO: set these to be the point of the pointer
     //    bullet.get()->x = x;
@@ -150,6 +150,8 @@ void Player::fireBullet( ) {
     //    bullet.get()->direction = direction;
 
     mBullets.push_back(bullet);
+    
+    //App::GetInstance()->shoot();
 }
 
 void Player::updateBullets( ) {

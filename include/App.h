@@ -2,6 +2,7 @@
 #define __APP_H__
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 #include "Event.h"
 #include "TextureBank.h"
@@ -25,14 +26,12 @@ const int BULLET_RATE = 50; // TODO: this will be modifable
 //The frame rate
 const int FRAMES_PER_SECOND = 60;
 
-////Screen dimension constants
-//const int SCREEN_WIDTH = 640;
-//const int SCREEN_HEIGHT = 480;
-//
-////Analog joystick dead zone
-//const int JOYSTICK_DEAD_ZONE = 8000;
+
+
+void my_audio_callback(void *userdata, Uint8 *stream, int len);
 
 class App : public Event {
+    
 private:
     static App Instance;
 
@@ -55,6 +54,9 @@ private:
     Texture* TestTexture;
 
     std::shared_ptr<Player> mPlayerPtr;
+    
+    //The sound effects that will be used
+     Mix_Chunk *mPew = NULL;
 
 private:
     //    public:
@@ -74,6 +76,8 @@ private:
 
     // Free up resources
     void Cleanup();
+    
+    //void my_audio_callback(void *userdata, Uint8 *stream, int len);
 
 public:
     int Execute(int argc, char* argv[]);
@@ -86,6 +90,8 @@ public:
 
     static int GetWindowWidth();
     static int GetWindowHeight();
+    
+    void shoot();
 };
 
 #endif

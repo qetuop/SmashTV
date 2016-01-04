@@ -10,39 +10,39 @@ App App::Instance;
 
 //==============================================================================
 
-App::App() {
+App::App( ) {
 }
 
 //------------------------------------------------------------------------------
 
-void App::OnEvent(SDL_Event* Event) {
+void App::OnEvent( SDL_Event* Event ) {
     Event::OnEvent(Event);
 }
 
 //------------------------------------------------------------------------------
 
-bool App::Init() {
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+bool App::Init( ) {
+    if ( SDL_Init(SDL_INIT_EVERYTHING) < 0 ) {
         Log("Unable to Init SDL: %s", SDL_GetError());
         return false;
     }
 
-    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+    if ( !SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1") ) {
         Log("Unable to Init hinting: %s", SDL_GetError());
     }
 
-    if ((Window = SDL_CreateWindow(
+    if ( (Window = SDL_CreateWindow(
             "My SDL Game",
             SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
             SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN)
-            ) == NULL) {
+            ) == NULL ) {
         Log("Unable to create SDL Window: %s", SDL_GetError());
         return false;
     }
 
     //    PrimarySurface = SDL_GetWindowSurface(Window);
 
-    if ((Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)) == nullptr) {
+    if ( (Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)) == nullptr ) {
         Log("Unable to create renderer");
         return false;
     }
@@ -51,34 +51,34 @@ bool App::Init() {
     SDL_SetRenderDrawColor(Renderer, 255, 255, 255, 255);
 
     // Initialize image loading for PNGs
-    if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+    if ( !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) ) {
         Log("Unable to init SDL_image: %s", IMG_GetError());
         return false;
     }
 
     // Load all of our Textures (see TextureBank class for expected folder)
-    if (TextureBank::Init() == false) {
+    if ( TextureBank::Init() == false ) {
         Log("Unable to init TextureBank");
         return false;
     }
 
     //Check for joysticks
-    if (SDL_NumJoysticks() < 1) {
+    if ( SDL_NumJoysticks() < 1 ) {
         printf("Warning: No joysticks connected!\n");
     } else {
         //Load joystick
         mJoystick = SDL_JoystickOpen(0);
-        if (mJoystick == NULL) {
+        if ( mJoystick == NULL ) {
             logSDLError(std::cout, "CApp::OnInit");
         } else
             std::cout << "LOADED JOYSTICK" << std::endl;
     }
 
 
-    for (int i = 0; i < SDL_NumJoysticks(); ++i) {
-        if (SDL_IsGameController(i)) {
+    for ( int i = 0; i < SDL_NumJoysticks(); ++i ) {
+        if ( SDL_IsGameController(i) ) {
             mGameController = SDL_GameControllerOpen(i);
-            if (mGameController) {
+            if ( mGameController ) {
                 cout << "Found Controller" << endl;
                 std::cout << SDL_GameControllerMapping(mGameController) << std::endl;
                 break;
@@ -88,42 +88,56 @@ bool App::Init() {
         }
     }
 
+    // The Players
     mPlayerPtr = std::make_shared<Player>();
 
+    
+    //Initialize SDL_mixer
+    if ( Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0 ) {
+        printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+        return false;
+    }
+    
+    //Load sound effects
+    mPew = Mix_LoadWAV( "pew.wav" );
+    if( mPew == NULL )
+    {
+        printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+        return false;
+    }
 
     return true;
+}
+// TODO: need to move this somewhere else
+void App::shoot() {
+    Mix_PlayChannel( -1, mPew, 0 );
 }
 
 //------------------------------------------------------------------------------
 
-void App::Loop() {
-    if (mGameController != nullptr && SDL_GameControllerGetAttached(mGameController)) {
+void App::Loop( ) {
+    if ( mGameController != nullptr && SDL_GameControllerGetAttached(mGameController) ) {
         // NOTE: We have a mGameController with index ControllerIndex.
 
         mPlayerPtr.get()->handle_input(mGameController);
         mPlayerPtr.get()->move();
 
         mPlayerPtr.get()->updateBullets();
-
-    }//gameController present
+    }
 }
 
 //------------------------------------------------------------------------------
 
-void App::Render() {
+void App::Render( ) {
     SDL_RenderClear(Renderer);
 
     // TODO: need to loop through textures?
     Texture* texture = nullptr;
 
     // TODO: clean this ?arrow -> gun?
-    if ((mPlayerPtr.get()->xVel == 0) && (mPlayerPtr.get()->yVel == 0)) {
-        texture = TextureBank::Get("arrow");
-    } else {
-        texture = TextureBank::Get("arrow");
-    }
+    texture = TextureBank::Get("survivor2");
 
-    if (texture != nullptr) {
+    if ( texture != nullptr ) {
         //texture->Render(0, 0); // You should really check your pointers
 
         int x = (SCREEN_WIDTH - texture->GetWidth()) / 2;
@@ -142,9 +156,9 @@ void App::Render() {
     // Bullets!
     // TODO: move the texture type into the Bullet class?  Just the identifier string bulletType
     texture = TextureBank::Get("bullet");
-    if (texture != nullptr) {
-        for (auto&& bullet : mPlayerPtr.get()->mBullets) {
-            if (bullet != nullptr) {
+    if ( texture != nullptr ) {
+        for ( auto&& bullet : mPlayerPtr.get()->mBullets ) {
+            if ( bullet != nullptr ) {
                 texture->render(Renderer, bullet.get()->x, bullet.get()->y);
             }
         }
@@ -158,15 +172,15 @@ void App::Render() {
 
 //------------------------------------------------------------------------------
 
-void App::Cleanup() {
+void App::Cleanup( ) {
     TextureBank::Cleanup();
 
-    if (Renderer) {
+    if ( Renderer ) {
         SDL_DestroyRenderer(Renderer);
         Renderer = NULL;
     }
 
-    if (Window) {
+    if ( Window ) {
         SDL_DestroyWindow(Window);
         Window = NULL;
     }
@@ -177,8 +191,8 @@ void App::Cleanup() {
 
 //------------------------------------------------------------------------------
 
-int App::Execute(int argc, char* argv[]) {
-    if (!Init()) return 0;
+int App::Execute( int argc, char* argv[] ) {
+    if ( !Init() ) return 0;
 
     SDL_Event Event;
 
@@ -190,7 +204,7 @@ int App::Execute(int argc, char* argv[]) {
         while (SDL_PollEvent(&Event) != 0) {
             OnEvent(&Event);
 
-            if (Event.type == SDL_QUIT)
+            if ( Event.type == SDL_QUIT )
                 Running = false;
         }
 
@@ -198,7 +212,7 @@ int App::Execute(int argc, char* argv[]) {
         Render();
 
         //Cap the frame rate
-        if (fps.get_ticks() < 1000 / FRAMES_PER_SECOND) {
+        if ( fps.get_ticks() < 1000 / FRAMES_PER_SECOND ) {
             SDL_Delay((1000 / FRAMES_PER_SECOND) - fps.get_ticks());
         }
 
@@ -212,21 +226,21 @@ int App::Execute(int argc, char* argv[]) {
 
 //==============================================================================
 
-SDL_Renderer * App::GetRenderer() {
+SDL_Renderer * App::GetRenderer( ) {
     return Renderer;
 }
 
 //==============================================================================
 
-App * App::GetInstance() {
+App * App::GetInstance( ) {
     return &App::Instance;
 }
 
-int App::GetWindowWidth() {
+int App::GetWindowWidth( ) {
     return SCREEN_WIDTH;
 }
 
-int App::GetWindowHeight() {
+int App::GetWindowHeight( ) {
     return SCREEN_HEIGHT;
 }
 

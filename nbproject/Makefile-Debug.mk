@@ -62,7 +62,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lSDL2 -lSDL2_image -lSDL2_ttf
+LDLIBSOPTIONS=-lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

@@ -76,6 +76,7 @@
             <linkerLibLibItem>SDL2</linkerLibLibItem>
             <linkerLibLibItem>SDL2_image</linkerLibLibItem>
             <linkerLibLibItem>SDL2_ttf</linkerLibLibItem>
+            <linkerLibLibItem>SDL2_mixer</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
