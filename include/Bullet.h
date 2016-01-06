@@ -14,10 +14,7 @@
 #ifndef BULLET_H
 #define BULLET_H
 
-
-
 class Bullet {
-    
 public:
     // the offsets
     int x;
@@ -29,11 +26,14 @@ public:
 
     double direction;
 
+    //Dot's collision box
+    SDL_Rect mCollider;
+
 public:
     Bullet();
-    Bullet(int _x, int _y, double _direction );
+    Bullet(int _x, int _y, double _direction);
     ~Bullet();
-    
+
     bool move();
 };
 

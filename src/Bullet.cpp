@@ -38,21 +38,17 @@ Bullet::Bullet(int _x, int _y, double _direction) {
     xVel = BULLET_RATE * cos(direction * M_PI / 180);
     yVel = BULLET_RATE * sin(direction * M_PI / 180);
     
-//    if ( direction < 0 ) {
-//        yVel = -yVel;
-//    }
-    
-     std::cout << "Bullet(): x = " << x 
-             << ", y = " << y
-             << ", direction = " << direction
-             << ", xVel = " << xVel
-             << ", yVel = " << yVel
-             << std::endl;
+//     std::cout << "Bullet(): x = " << x 
+//             << ", y = " << y
+//             << ", direction = " << direction
+//             << ", xVel = " << xVel
+//             << ", yVel = " << yVel
+//             << std::endl;
      
 }
 
 Bullet::~Bullet() {
-    std::cout << "~Bullet()" << std::endl;
+    //std::cout << "~Bullet()" << std::endl;
 }
 
 bool Bullet::move() {
@@ -61,45 +57,6 @@ bool Bullet::move() {
     y += yVel;
 
     //std::cout << "Bullet::move::x = " << x << ", y = " << y << std::endl;
-
-
-    //    switch (int(direction)) {
-    //        case 0:
-    //            x += RATE;
-    //            break;
-    //
-    //        case 45:
-    //            x += RATE / 2;
-    //            y += RATE / 2;
-    //            break;
-    //
-    //        case 90:
-    //            y += RATE;
-    //            break;
-    //
-    //        case 135:
-    //            x -= RATE / 2;
-    //            y += RATE / 2;
-    //            break;
-    //
-    //        case 180:
-    //            x -= RATE;
-    //            break;
-    //
-    //        case -45:
-    //            x += RATE / 2;
-    //            y -= RATE / 2;
-    //            break;
-    //
-    //        case -90:
-    //            y -= RATE;
-    //            break;
-    //
-    //        case -135:
-    //            x -= RATE / 2;
-    //            y -= RATE / 2;
-    //            break;
-    //}
 
     // hits a wall
     if ((x <= 0) || (x >= SCREEN_WIDTH)) {

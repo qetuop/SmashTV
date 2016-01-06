@@ -12,6 +12,8 @@
             <sourceRootList>
                 <sourceRootElem>src</sourceRootElem>
                 <sourceRootElem>include</sourceRootElem>
+                <sourceRootElem>Textures</sourceRootElem>
+                <sourceRootElem>Sounds</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

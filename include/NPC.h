@@ -5,7 +5,7 @@
  */
 
 /* 
- * File:   Player.h
+ * File:   NPC.h
  * Author: brian
  *
  * Created on January 1, 2016, 5:54 PM
@@ -15,26 +15,26 @@
 #include <memory>
 #include <list>
 
-#include "Bullet.h"
 #include "Character.h"
+#include "Bullet.h"
 
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef NPC_H
+#define NPC_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-    class Player : public Character {
+    class NPC : public Character {
     public:
 
     public:
-        Player();
-        ~Player();
+        NPC();
+        ~NPC();
 
-        void handle_input(SDL_GameController *controller);
+        //void handle_input(SDL_GameController *controller);
 
-        // Moves the dot
+        //Move
         void move();
     };
 
@@ -44,5 +44,5 @@ extern "C" {
 }
 #endif
 
-#endif /* PLAYER_H */
+#endif /* NPC_H */
 

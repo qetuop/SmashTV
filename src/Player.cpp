@@ -14,13 +14,8 @@ static int doOnce = 1;
 
 Player::Player( ) {
     std::cout << "Player created" << std::endl;
-    x = SCREEN_WIDTH / 2;
-    y = SCREEN_HEIGHT / 2;
-
-    xVel = 0;
-    yVel = 0;
-
-    firing = false;
+    
+    spriteName = "survivor2";
 }
 
 Player::~Player( ) {
@@ -136,31 +131,4 @@ void Player::move( ) {
     }
 
     //std::cout << "x: " << x << ", y: " << y << std::endl;
-}
-
-void Player::fireBullet( ) {
-
-
-    //std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>();
-    auto bullet = std::make_shared<Bullet>(x + PLAYER_WIDTH / 2, y + PLAYER_HEIGHT / 2, direction);
-
-    // TODO: set these to be the point of the pointer
-    //    bullet.get()->x = x;
-    //    bullet.get()->y = y;
-    //    bullet.get()->direction = direction;
-
-    mBullets.push_back(bullet);
-    
-    //App::GetInstance()->shoot();
-}
-
-void Player::updateBullets( ) {
-
-    for ( auto bulletItr = mBullets.begin(); bulletItr != mBullets.end(); ) {
-        if ( bulletItr->get()->move() == false ) {
-            bulletItr = mBullets.erase(bulletItr);
-        } else {
-            ++bulletItr;
-        }
-    }
 }

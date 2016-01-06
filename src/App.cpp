@@ -91,26 +91,29 @@ bool App::Init( ) {
     // The Players
     mPlayerPtr = std::make_shared<Player>();
 
+    // The baddies
+    mNPCPtr = std::make_shared<NPC>();
     
+
     //Initialize SDL_mixer
     if ( Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0 ) {
         printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
         return false;
     }
-    
+
     //Load sound effects
-    mPew = Mix_LoadWAV( "pew.wav" );
-    if( mPew == NULL )
-    {
-        printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+    mPew = Mix_LoadWAV("Sounds/pew.wav");
+    if ( mPew == NULL ) {
+        printf("Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError());
         return false;
     }
 
     return true;
 }
 // TODO: need to move this somewhere else
-void App::shoot() {
-    Mix_PlayChannel( -1, mPew, 0 );
+
+void App::shoot( ) {
+    Mix_PlayChannel(-1, mPew, 0);
 }
 
 //------------------------------------------------------------------------------
@@ -134,25 +137,26 @@ void App::Render( ) {
     // TODO: need to loop through textures?
     Texture* texture = nullptr;
 
-    // TODO: clean this ?arrow -> gun?
-    texture = TextureBank::Get("survivor2");
-
+    // Players
+    texture = TextureBank::Get(mPlayerPtr.get()->spriteName);
     if ( texture != nullptr ) {
-        //texture->Render(0, 0); // You should really check your pointers
 
-        int x = (SCREEN_WIDTH - texture->GetWidth()) / 2;
-        int y = (SCREEN_HEIGHT - texture->GetHeight()) / 2;
-        double direction = 0.0;
-
-        x = mPlayerPtr.get()->x;
-        y = mPlayerPtr.get()->y;
-        direction = mPlayerPtr.get()->direction;
-
-        texture->render(Renderer, x, y, NULL, direction);
+        texture->render(Renderer, mPlayerPtr.get()->x, mPlayerPtr.get()->y, 
+                NULL, mPlayerPtr.get()->direction);
     } else {
         logSDLError(std::cout, "App::Render");
     }
+        
+    // NPCs
+    texture = TextureBank::Get(mNPCPtr.get()->spriteName);
+    if ( texture != nullptr ) {
 
+        texture->render(Renderer, mNPCPtr.get()->x, mNPCPtr.get()->y, 
+                NULL, mNPCPtr.get()->direction);
+    } else {
+        logSDLError(std::cout, "App::Render");
+    }
+    
     // Bullets!
     // TODO: move the texture type into the Bullet class?  Just the identifier string bulletType
     texture = TextureBank::Get("bullet");
@@ -173,6 +177,7 @@ void App::Render( ) {
 //------------------------------------------------------------------------------
 
 void App::Cleanup( ) {
+    
     TextureBank::Cleanup();
 
     if ( Renderer ) {
@@ -184,6 +189,8 @@ void App::Cleanup( ) {
         SDL_DestroyWindow(Window);
         Window = NULL;
     }
+    
+    // sounds?
 
     IMG_Quit();
     SDL_Quit();

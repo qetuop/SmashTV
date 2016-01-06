@@ -8,6 +8,7 @@
 #include "TextureBank.h"
 
 #include "Player.h"
+#include "NPC.h"
 #include "Timer.h"
 
 
@@ -54,6 +55,7 @@ private:
     Texture* TestTexture;
 
     std::shared_ptr<Player> mPlayerPtr;
+    std::shared_ptr<NPC> mNPCPtr;
     
     //The sound effects that will be used
      Mix_Chunk *mPew = NULL;

@@ -37,9 +37,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/App.o \
 	${OBJECTDIR}/src/Bullet.o \
+	${OBJECTDIR}/src/Character.o \
 	${OBJECTDIR}/src/Event.o \
 	${OBJECTDIR}/src/FileManager.o \
 	${OBJECTDIR}/src/Helper.o \
+	${OBJECTDIR}/src/NPC.o \
 	${OBJECTDIR}/src/Player.o \
 	${OBJECTDIR}/src/Stringify.o \
 	${OBJECTDIR}/src/Texture.o \
@@ -82,6 +84,11 @@ ${OBJECTDIR}/src/Bullet.o: src/Bullet.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Bullet.o src/Bullet.cpp
 
+${OBJECTDIR}/src/Character.o: src/Character.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Character.o src/Character.cpp
+
 ${OBJECTDIR}/src/Event.o: src/Event.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -96,6 +103,11 @@ ${OBJECTDIR}/src/Helper.o: src/Helper.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Helper.o src/Helper.cpp
+
+${OBJECTDIR}/src/NPC.o: src/NPC.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/NPC.o src/NPC.cpp
 
 ${OBJECTDIR}/src/Player.o: src/Player.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
