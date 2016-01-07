@@ -11,24 +11,14 @@
  * Created on January 2, 2016, 7:33 PM
  */
 
+#include "MoveableObject.h"
+
 #ifndef BULLET_H
 #define BULLET_H
 
-class Bullet {
+class Bullet : public MoveableObject {
 public:
-    // the offsets
-    int x;
-    int y;
-
-    // The velocity of the bullet
-    int xVel;
-    int yVel;
-
-    double direction;
-
-    //Dot's collision box
-    SDL_Rect mCollider;
-
+  
 public:
     Bullet();
     Bullet(int _x, int _y, double _direction);

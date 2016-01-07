@@ -6,16 +6,18 @@
 
 #include "Player.h"
 #include "App.h"
+
 #include <iostream>
 
-#include <vector>
 
 static int doOnce = 1;
 
 Player::Player( ) {
     std::cout << "Player created" << std::endl;
-    
+
     spriteName = "survivor2";
+
+    //firing = false;
 }
 
 Player::~Player( ) {
@@ -106,29 +108,26 @@ void Player::handle_input( SDL_GameController *controller ) {
     }
 
     //std::cout << "xVel: " << xVel << ", yVel: " << yVel << ", direction: " << direction << std::endl;
-
-
-
 } // handle_input
 
-void Player::move( ) {
-    //Move the dot left or right
-    x += xVel;
+void Player::fireBullet( ) {
 
-    //If the dot went too far to the left or right
-    if ( (x < 0) || (x + PLAYER_WIDTH > SCREEN_WIDTH) ) {
-        //move back
-        x -= xVel;
+    // TODO: better way to get texture size then getting it each time?
+    Texture *texture = TextureBank::Get("bullet");
+    if ( texture != nullptr ){
+        auto bullet = std::make_shared<Bullet>(x + PLAYER_WIDTH / 2, y + PLAYER_HEIGHT / 2, direction);
+        
+        mBullets.push_back(bullet);
     }
+}
 
-    //Move the dot up or down
-    y += yVel;
+void Player::updateBullets( ) {
 
-    //If the dot went too far up or down
-    if ( (y < 0) || (y + PLAYER_HEIGHT > SCREEN_HEIGHT) ) {
-        //move back
-        y -= yVel;
+    for ( auto bulletItr = mBullets.begin(); bulletItr != mBullets.end(); ) {
+        if ( bulletItr->get()->move() == false ) {
+            bulletItr = mBullets.erase(bulletItr);
+        } else {
+            ++bulletItr;
+        }
     }
-
-    //std::cout << "x: " << x << ", y: " << y << std::endl;
 }

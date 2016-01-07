@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Event.o \
 	${OBJECTDIR}/src/FileManager.o \
 	${OBJECTDIR}/src/Helper.o \
+	${OBJECTDIR}/src/MoveableObject.o \
 	${OBJECTDIR}/src/NPC.o \
 	${OBJECTDIR}/src/Player.o \
 	${OBJECTDIR}/src/Stringify.o \
@@ -103,6 +104,11 @@ ${OBJECTDIR}/src/Helper.o: src/Helper.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Helper.o src/Helper.cpp
+
+${OBJECTDIR}/src/MoveableObject.o: src/MoveableObject.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/MoveableObject.o src/MoveableObject.cpp
 
 ${OBJECTDIR}/src/NPC.o: src/NPC.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

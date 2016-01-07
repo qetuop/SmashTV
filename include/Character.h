@@ -15,7 +15,7 @@
 #include <memory>
 #include <list>
 
-#include "Bullet.h"
+#include "MoveableObject.h"
 
 #ifndef CHARACTER_H
 #define CHARACTER_H
@@ -24,42 +24,12 @@
 extern "C" {
 #endif
 
-    class Character {
-    public:
-        // the offsets
-        int x;
-        int y;
-
-        // The velocity
-        int xVel;
-        int yVel;
-
-        // facing
-        double direction;
-
-        bool firing;
-
-        std::list<std::shared_ptr<Bullet>> mBullets;
-        
-        std::string spriteName;
-        
-        //Dot's collision box
-        SDL_Rect mCollider;
-
+    class Character : public MoveableObject {
+    public:        
 
     public:
         Character();
         ~Character();
-
-        //void handle_input(SDL_GameController *controller);
-
-        // Move - PC will take joystick input, NPC use an AI
-        virtual void move();
-
-        void fireBullet();
-        void updateBullets();
-
-
     };
 
 #ifdef __cplusplus

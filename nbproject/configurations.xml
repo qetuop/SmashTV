@@ -12,6 +12,7 @@
         <itemPath>include/FileManager.h</itemPath>
         <itemPath>include/Helper.h</itemPath>
         <itemPath>include/Log.h</itemPath>
+        <itemPath>include/MoveableObject.h</itemPath>
         <itemPath>include/NPC.h</itemPath>
         <itemPath>include/Player.h</itemPath>
         <itemPath>include/Stringify.h</itemPath>
@@ -34,6 +35,7 @@
         <itemPath>src/Event.cpp</itemPath>
         <itemPath>src/FileManager.cpp</itemPath>
         <itemPath>src/Helper.cpp</itemPath>
+        <itemPath>src/MoveableObject.cpp</itemPath>
         <itemPath>src/NPC.cpp</itemPath>
         <itemPath>src/Player.cpp</itemPath>
         <itemPath>src/Stringify.cpp</itemPath>
@@ -100,6 +102,8 @@
       </item>
       <item path="include/Log.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/MoveableObject.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/NPC.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Player.h" ex="false" tool="3" flavor2="0">
@@ -123,6 +127,8 @@
       <item path="src/FileManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Helper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MoveableObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPC.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -173,6 +179,8 @@
       </item>
       <item path="include/Log.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/MoveableObject.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/NPC.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Player.h" ex="false" tool="3" flavor2="0">
@@ -196,6 +204,8 @@
       <item path="src/FileManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Helper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MoveableObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPC.cpp" ex="false" tool="1" flavor2="0">
       </item>

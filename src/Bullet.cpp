@@ -18,12 +18,6 @@
 
 
 Bullet::Bullet() {
-    x = 0;
-    y = 0;
-    //xVel = 0;
-    //yVel = 0;
-    direction = 0.0;
-
     // do once
     xVel = BULLET_RATE * cos(direction);
     yVel = BULLET_RATE * sin(direction);

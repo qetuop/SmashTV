@@ -28,14 +28,17 @@ extern "C" {
     class Player : public Character {
     public:
 
+        //bool firing;
+        std::list<std::shared_ptr<Bullet>> mBullets;
+
     public:
         Player();
         ~Player();
 
         void handle_input(SDL_GameController *controller);
 
-        // Moves the dot
-        void move();
+        void fireBullet();
+        void updateBullets();
     };
 
 

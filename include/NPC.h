@@ -31,11 +31,6 @@ extern "C" {
     public:
         NPC();
         ~NPC();
-
-        //void handle_input(SDL_GameController *controller);
-
-        //Move
-        void move();
     };
 
 

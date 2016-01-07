@@ -89,11 +89,22 @@ bool App::Init( ) {
     }
 
     // The Players
-    mPlayerPtr = std::make_shared<Player>();
+    Texture *texture = TextureBank::Get("survivor2");
+    if ( texture != nullptr ) {
+        mPlayerPtr = std::make_shared<Player>();
+        mPlayerPtr.get()->setWidth(texture->GetWidth());
+        mPlayerPtr.get()->setHeight((texture->GetHeight()));
+    }
+    
 
     // The baddies
-    mNPCPtr = std::make_shared<NPC>();
-    
+    texture = TextureBank::Get("attacker2");
+    if ( texture != nullptr ) {
+        mNPCPtr = std::make_shared<NPC>();
+        mNPCPtr.get()->setWidth(texture->GetWidth());
+        mNPCPtr.get()->setHeight((texture->GetHeight()));
+    }
+
 
     //Initialize SDL_mixer
     if ( Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0 ) {
