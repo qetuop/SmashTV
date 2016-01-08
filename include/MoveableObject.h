@@ -24,6 +24,8 @@ public:
     int height;
     int width;
     
+    // TODO: make a setX/Y func
+    // TODO: change to mPosX;
     // the offsets
     int x;
     int y;
@@ -52,6 +54,10 @@ public:
     
     void setHeight(int _height);
     void setWidth(int _width);
+    
+    SDL_Rect getCollider();
+    
+    bool checkCollision( SDL_Rect targetRect );
     
 }; // class MoveableObject
 

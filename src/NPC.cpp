@@ -14,8 +14,12 @@ static int doOnce = 1;
 NPC::NPC( ) {
     std::cout << "NPC created" << std::endl;
     
+    // TODO: make a setX/Y func
     x = 0;
     y = 0;
+    
+    mCollider.x = x;
+    mCollider.y = y;
     
     spriteName = "attacker2";    
 }

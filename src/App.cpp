@@ -135,8 +135,9 @@ void App::Loop( ) {
 
         mPlayerPtr.get()->handle_input(mGameController);
         mPlayerPtr.get()->move();
+        mPlayerPtr.get()->checkCollision(mNPCPtr.get()->getCollider());
 
-        mPlayerPtr.get()->updateBullets();
+        mPlayerPtr.get()->updateBullets();                
     }
 }
 
