@@ -92,8 +92,8 @@ bool App::Init( ) {
     Texture *texture = TextureBank::Get("survivor2");
     if ( texture != nullptr ) {
         mPlayerPtr = std::make_shared<Player>();
-        mPlayerPtr.get()->setWidth(texture->GetWidth());
-        mPlayerPtr.get()->setHeight((texture->GetHeight()));
+        mPlayerPtr->setWidth(texture->GetWidth());
+        mPlayerPtr->setHeight((texture->GetHeight()));
     }
     
 
@@ -101,8 +101,8 @@ bool App::Init( ) {
     texture = TextureBank::Get("attacker2");
     if ( texture != nullptr ) {
         mNPCPtr = std::make_shared<NPC>();
-        mNPCPtr.get()->setWidth(texture->GetWidth());
-        mNPCPtr.get()->setHeight((texture->GetHeight()));
+        mNPCPtr->setWidth(texture->GetWidth());
+        mNPCPtr->setHeight((texture->GetHeight()));
     }
 
 
@@ -133,11 +133,11 @@ void App::Loop( ) {
     if ( mGameController != nullptr && SDL_GameControllerGetAttached(mGameController) ) {
         // NOTE: We have a mGameController with index ControllerIndex.
 
-        mPlayerPtr.get()->handle_input(mGameController);
-        mPlayerPtr.get()->move();
-        mPlayerPtr.get()->checkCollision(mNPCPtr.get()->getCollider());
+        mPlayerPtr->handle_input(mGameController);
+        mPlayerPtr->move();
+        mPlayerPtr->checkCollision(mNPCPtr->getCollider());
 
-        mPlayerPtr.get()->updateBullets();                
+        mPlayerPtr->updateBullets();                
     }
 }
 
@@ -150,21 +150,21 @@ void App::Render( ) {
     Texture* texture = nullptr;
 
     // Players
-    texture = TextureBank::Get(mPlayerPtr.get()->mSpriteName);
+    texture = TextureBank::Get(mPlayerPtr->mSpriteName);
     if ( texture != nullptr ) {
 
-        texture->render(Renderer, mPlayerPtr.get()->mPosX, mPlayerPtr.get()->mPosY, 
-                NULL, mPlayerPtr.get()->mDirection);
+        texture->render(Renderer, mPlayerPtr->mPosX, mPlayerPtr->mPosY, 
+                NULL, mPlayerPtr->mDirection);
     } else {
         logSDLError(std::cout, "App::Render");
     }
         
     // NPCs
-    texture = TextureBank::Get(mNPCPtr.get()->mSpriteName);
+    texture = TextureBank::Get(mNPCPtr->mSpriteName);
     if ( texture != nullptr ) {
 
-        texture->render(Renderer, mNPCPtr.get()->mPosX, mNPCPtr.get()->mPosY, 
-                NULL, mNPCPtr.get()->mDirection);
+        texture->render(Renderer, mNPCPtr->mPosX, mNPCPtr->mPosY, 
+                NULL, mNPCPtr->mDirection);
     } else {
         logSDLError(std::cout, "App::Render");
     }
@@ -173,9 +173,9 @@ void App::Render( ) {
     // TODO: move the texture type into the Bullet class?  Just the identifier string bulletType
     texture = TextureBank::Get("bullet");
     if ( texture != nullptr ) {
-        for ( auto&& bullet : mPlayerPtr.get()->mBullets ) {
+        for ( auto&& bullet : mPlayerPtr->mBullets ) {
             if ( bullet != nullptr ) {
-                texture->render(Renderer, bullet.get()->mPosX, bullet.get()->mPosY);
+                texture->render(Renderer, bullet->mPosX, bullet->mPosY);
             }
         }
     } else {
