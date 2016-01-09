@@ -19,18 +19,18 @@
 
 Bullet::Bullet() {
     // do once
-    xVel = BULLET_RATE * cos(direction);
-    yVel = BULLET_RATE * sin(direction);
+    mVelX = BULLET_RATE * cos(mDirection);
+    mVelY = BULLET_RATE * sin(mDirection);
 }
 
 Bullet::Bullet(int _x, int _y, double _direction) {
-    x = _x;
-    y = _y;
+    mPosX = _x;
+    mPosY = _y;
 
-    direction = (int)_direction;
+    mDirection = (int)_direction;
 
-    xVel = BULLET_RATE * cos(direction * M_PI / 180);
-    yVel = BULLET_RATE * sin(direction * M_PI / 180);
+    mVelX = BULLET_RATE * cos(mDirection * M_PI / 180);
+    mVelY = BULLET_RATE * sin(mDirection * M_PI / 180);
     
 //     std::cout << "Bullet(): x = " << x 
 //             << ", y = " << y
@@ -47,15 +47,15 @@ Bullet::~Bullet() {
 
 bool Bullet::move() {
     bool isAlive = true;
-    x += xVel;
-    y += yVel;
+    mPosX += mVelX;
+    mPosY += mVelY;
 
     //std::cout << "Bullet::move::x = " << x << ", y = " << y << std::endl;
 
     // hits a wall
-    if ((x <= 0) || (x >= SCREEN_WIDTH)) {
+    if ((mPosX <= 0) || (mPosX >= SCREEN_WIDTH)) {
         isAlive = false;
-    } else if ((y <= 0) || (y >= SCREEN_HEIGHT)) {
+    } else if ((mPosY <= 0) || (mPosY >= SCREEN_HEIGHT)) {
         isAlive = false;
     }
 

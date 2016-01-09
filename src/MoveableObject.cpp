@@ -14,18 +14,18 @@
 #include "MoveableObject.h"
 
 MoveableObject::MoveableObject( ) {
-    x = SCREEN_WIDTH / 2;
-    y = SCREEN_HEIGHT / 2;
+    mPosX = SCREEN_WIDTH / 2;
+    mPosY = SCREEN_HEIGHT / 2;
     
-    mCollider.x = x;
-    mCollider.y = y;
+    mCollider.x = mPosX;
+    mCollider.y = mPosY;
 
-    xVel = 0;
-    yVel = 0;
+    mVelX = 0;
+    mVelY = 0;
 
-    direction = 0.0;
+    mDirection = 0.0;
 
-    spriteName = "";
+    mSpriteName = "";
 }
 
 MoveableObject::MoveableObject( const MoveableObject& orig ) {
@@ -36,47 +36,47 @@ MoveableObject::~MoveableObject( ) {
 
 void MoveableObject::move( ) {
     //Move the dot left or right
-    x += xVel;
-    mCollider.x = x;
+    mPosX += mVelX;
+    mCollider.x = mPosX;
 
     //If the dot went too far to the left or right
-    if ( (x < 0) || (x + getHeight() > SCREEN_WIDTH) ) {
+    if ( (mPosX < 0) || (mPosX + getHeight() > SCREEN_WIDTH) ) {
         //move back
-        x -= xVel;
-        mCollider.x = x;
+        mPosX -= mVelX;
+        mCollider.x = mPosX;
     }
 
     //Move the dot up or down
-    y += yVel;
-    mCollider.y = y;
+    mPosY += mVelY;
+    mCollider.y = mPosY;
 
     //If the dot went too far up or down
-    if ( (y < 0) || (y + getWidth() > SCREEN_HEIGHT) ) {
+    if ( (mPosY < 0) || (mPosY + getWidth() > SCREEN_HEIGHT) ) {
         //move back
-        y -= yVel;
-        mCollider.y = y;
+        mPosY -= mVelY;
+        mCollider.y = mPosY;
     }
 
     //std::cout << "x: " << x << ", y: " << y << std::endl;
 }
 
 int MoveableObject::getHeight() {
-    return height;
+    return mHeight;
 }
 
 int MoveableObject:: getWidth() {
-    return width;
+    return mWidth;
 }
 
 void MoveableObject::setHeight(int _height) {
-    height = _height;
+    mHeight = _height;
     
-    mCollider.h = height;
+    mCollider.h = mHeight;
 }
 
 void MoveableObject::setWidth(int _width) {
-    width = _width;
-    mCollider.w = width;
+    mWidth = _width;
+    mCollider.w = mWidth;
 }
 
 SDL_Rect MoveableObject::getCollider() {

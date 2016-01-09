@@ -150,21 +150,21 @@ void App::Render( ) {
     Texture* texture = nullptr;
 
     // Players
-    texture = TextureBank::Get(mPlayerPtr.get()->spriteName);
+    texture = TextureBank::Get(mPlayerPtr.get()->mSpriteName);
     if ( texture != nullptr ) {
 
-        texture->render(Renderer, mPlayerPtr.get()->x, mPlayerPtr.get()->y, 
-                NULL, mPlayerPtr.get()->direction);
+        texture->render(Renderer, mPlayerPtr.get()->mPosX, mPlayerPtr.get()->mPosY, 
+                NULL, mPlayerPtr.get()->mDirection);
     } else {
         logSDLError(std::cout, "App::Render");
     }
         
     // NPCs
-    texture = TextureBank::Get(mNPCPtr.get()->spriteName);
+    texture = TextureBank::Get(mNPCPtr.get()->mSpriteName);
     if ( texture != nullptr ) {
 
-        texture->render(Renderer, mNPCPtr.get()->x, mNPCPtr.get()->y, 
-                NULL, mNPCPtr.get()->direction);
+        texture->render(Renderer, mNPCPtr.get()->mPosX, mNPCPtr.get()->mPosY, 
+                NULL, mNPCPtr.get()->mDirection);
     } else {
         logSDLError(std::cout, "App::Render");
     }
@@ -175,7 +175,7 @@ void App::Render( ) {
     if ( texture != nullptr ) {
         for ( auto&& bullet : mPlayerPtr.get()->mBullets ) {
             if ( bullet != nullptr ) {
-                texture->render(Renderer, bullet.get()->x, bullet.get()->y);
+                texture->render(Renderer, bullet.get()->mPosX, bullet.get()->mPosY);
             }
         }
     } else {

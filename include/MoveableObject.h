@@ -18,26 +18,26 @@
 #define MOVEABLEOBJECT_H
 
 class MoveableObject {
-    
+                            
 public:
     // sprite bounding box
-    int height;
-    int width;
+    int mHeight;
+    int mWidth;
     
-    // TODO: make a setX/Y func
-    // TODO: change to mPosX;
+    // TODO: make a setX/Y func?
+
     // the offsets
-    int x;
-    int y;
+    int mPosX;
+    int mPosY;
 
     // The velocity
-    int xVel;
-    int yVel;
+    int mVelX;
+    int mVelY;
 
     // facing
-    double direction;
+    double mDirection;
 
-    std::string spriteName;
+    std::string mSpriteName;
 
     // collision box
     SDL_Rect mCollider;

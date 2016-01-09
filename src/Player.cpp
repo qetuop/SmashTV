@@ -15,7 +15,7 @@ static int doOnce = 1;
 Player::Player( ) {
     std::cout << "Player created" << std::endl;
 
-    spriteName = "survivor2";
+    mSpriteName = "survivor2";
 
     //firing = false;
 }
@@ -60,7 +60,7 @@ void Player::handle_input( SDL_GameController *controller ) {
 
     if ( ((StickRightX < -JOYSTICK_DEAD_ZONE) || (StickRightX > JOYSTICK_DEAD_ZONE))
             || ((StickRightY < -JOYSTICK_DEAD_ZONE) || (StickRightY > JOYSTICK_DEAD_ZONE)) ) {
-        direction = atan2((double) StickRightY, (double) StickRightX) * (180.0 / M_PI);
+        mDirection = atan2((double) StickRightY, (double) StickRightX) * (180.0 / M_PI);
         fireBullet();
     }
 
@@ -85,25 +85,25 @@ void Player::handle_input( SDL_GameController *controller ) {
 
     // If the X axis is neutral
     if ( (StickLeftX > -JOYSTICK_DEAD_ZONE) && (StickLeftX < JOYSTICK_DEAD_ZONE) ) {
-        xVel = 0;
+        mVelX = 0;
     }// Adjust the velocity
     else {
         if ( StickLeftX < 0 ) {
-            xVel = -PLAYER_WIDTH / 8;
+            mVelX = -PLAYER_WIDTH / 8;
         } else {
-            xVel = PLAYER_WIDTH / 8;
+            mVelX = PLAYER_WIDTH / 8;
         }
     }
 
     // If the Y axis is neutral
     if ( (StickLeftY > -JOYSTICK_DEAD_ZONE) && (StickLeftY < JOYSTICK_DEAD_ZONE) ) {
-        yVel = 0;
+        mVelY = 0;
     }// Adjust the velocity
     else {
         if ( StickLeftY < 0 ) {
-            yVel = -PLAYER_HEIGHT / 8;
+            mVelY = -PLAYER_HEIGHT / 8;
         } else {
-            yVel = PLAYER_HEIGHT / 8;
+            mVelY = PLAYER_HEIGHT / 8;
         }
     }
 
@@ -115,7 +115,7 @@ void Player::fireBullet( ) {
     // TODO: better way to get texture size then getting it each time?
     Texture *texture = TextureBank::Get("bullet");
     if ( texture != nullptr ){
-        auto bullet = std::make_shared<Bullet>(x + PLAYER_WIDTH / 2, y + PLAYER_HEIGHT / 2, direction);
+        auto bullet = std::make_shared<Bullet>(mPosX + PLAYER_WIDTH / 2, mPosY + PLAYER_HEIGHT / 2, mDirection);
         
         mBullets.push_back(bullet);
     }

@@ -15,13 +15,13 @@ NPC::NPC( ) {
     std::cout << "NPC created" << std::endl;
     
     // TODO: make a setX/Y func
-    x = 0;
-    y = 0;
+    mPosX = 0;
+    mPosY = 0;
     
-    mCollider.x = x;
-    mCollider.y = y;
+    mCollider.x = mPosX;
+    mCollider.y = mPosY;
     
-    spriteName = "attacker2";    
+    mSpriteName = "attacker2";    
 }
 
 NPC::~NPC( ) {
