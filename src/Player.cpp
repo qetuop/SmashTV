@@ -10,14 +10,15 @@
 #include <iostream>
 
 
-static int doOnce = 1;
+//static int doOnce = 1;
+const int FRAME_COUNT = 20;
+
 
 Player::Player( ) {
-    std::cout << "Player created" << std::endl;
+    std::cout << "Player created " << std::endl;
 
-    mSpriteName = "survivor2";
-
-    //firing = false;
+    frame = 0;
+    mSpriteName = "survivor-move_rifle_" ;
 }
 
 Player::~Player( ) {
@@ -25,6 +26,10 @@ Player::~Player( ) {
 }
 
 void Player::handle_input( SDL_GameController *controller ) {
+    
+    // TODO: need an update() type function
+    
+    
 
     // DPAD
     bool Up = SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_UP);
@@ -130,4 +135,19 @@ void Player::updateBullets( ) {
             ++bulletItr;
         }
     }
+}
+
+std::string Player::getSpriteName() {
+    return mSpriteName + std::to_string(frame);
+}
+
+bool Player::move() {
+    MoveableObject::move();
+    
+    // TODO: better way
+    if ( mVelX != 0 || mVelY != 0) {
+        frame = ++frame % FRAME_COUNT;
+    }
+    
+    return false;
 }

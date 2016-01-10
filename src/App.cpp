@@ -146,11 +146,16 @@ void App::Loop( ) {
 void App::Render( ) {
     SDL_RenderClear(Renderer);
 
+    //std::cout << __FILE__ << " " << __LINE__ << std::endl;
+    
     // TODO: need to loop through textures?
     Texture* texture = nullptr;
 
     // Players
-    texture = TextureBank::Get(mPlayerPtr->mSpriteName);
+    //std::string name = mPlayerPtr->getSpriteName();
+    //std::cout << "name  " << name << std::endl;
+    texture = TextureBank::Get(mPlayerPtr->getSpriteName());
+    //std::cout << "mPlayerPtr->getSpriteName() " << mPlayerPtr->getSpriteName() << endl;
     if ( texture != nullptr ) {
 
         texture->render(Renderer, mPlayerPtr->mPosX, mPlayerPtr->mPosY, 

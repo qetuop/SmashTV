@@ -47,7 +47,8 @@ public:
     MoveableObject( const MoveableObject& orig );
     ~MoveableObject();
     
-    void move();
+    // return true if collision detected - not impltmented here yet,
+    virtual bool move();
     
     int getHeight();
     int getWidth();
@@ -58,6 +59,9 @@ public:
     SDL_Rect getCollider();
     
     bool checkCollision( SDL_Rect targetRect );
+    
+    // TODO: tmp - need to figure out if tex ref should be stored in class or just the name
+    virtual std::string getSpriteName();
     
 }; // class MoveableObject
 

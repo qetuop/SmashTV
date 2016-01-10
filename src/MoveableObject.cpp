@@ -34,7 +34,7 @@ MoveableObject::MoveableObject( const MoveableObject& orig ) {
 MoveableObject::~MoveableObject( ) {
 }
 
-void MoveableObject::move( ) {
+bool MoveableObject::move( ) {
     //Move the dot left or right
     mPosX += mVelX;
     mCollider.x = mPosX;
@@ -58,6 +58,8 @@ void MoveableObject::move( ) {
     }
 
     //std::cout << "x: " << x << ", y: " << y << std::endl;
+    
+    return false;
 }
 
 int MoveableObject::getHeight() {
@@ -104,4 +106,8 @@ bool MoveableObject::checkCollision( SDL_Rect targetRect ) {
             << std::endl;
     
     return 0;
+}
+
+std::string MoveableObject::getSpriteName() {
+    return mSpriteName;
 }

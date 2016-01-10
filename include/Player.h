@@ -30,6 +30,9 @@ extern "C" {
 
         //bool firing;
         std::list<std::shared_ptr<Bullet>> mBullets;
+        
+        // current animation frame to draw
+        int frame;
 
     public:
         Player();
@@ -39,6 +42,10 @@ extern "C" {
 
         void fireBullet();
         void updateBullets();
+        
+        virtual bool move();
+        
+        virtual std::string getSpriteName();
     };
 
 
