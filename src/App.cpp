@@ -27,10 +27,12 @@ bool App::Init( ) {
         return false;
     }
 
+    // set the scaling interpolation algorithm for the whole renderer
     if ( !SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1") ) {
         Log("Unable to Init hinting: %s", SDL_GetError());
     }
 
+    // SDL_WINDOW_FULLSCREEN_DESKTOP  |  SDL_WINDOW_SHOWN
     if ( (Window = SDL_CreateWindow(
             "My SDL Game",
             SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
@@ -40,6 +42,24 @@ bool App::Init( ) {
         return false;
     }
 
+    int display_count = 0;
+    int display_index = 0;
+    int mode_index = 0;
+    SDL_DisplayMode mode = {SDL_PIXELFORMAT_UNKNOWN, 0, 0, 0, 0};
+
+    if ( (display_count = SDL_GetNumVideoDisplays()) < 1 ) {
+        SDL_Log("SDL_GetNumVideoDisplays returned: %i", display_count);
+        return 1;
+    }
+
+    for (; display_index < display_count; display_index++ ) {
+        if ( SDL_GetDisplayMode(display_index, mode_index, &mode) != 0 ) {
+            SDL_Log("SDL_GetDisplayMode failed: %s", SDL_GetError());
+            return 1;
+        }
+        SDL_Log("SDL_GetDisplayMode(0, 0, &mode):\t\t%i bpp\t%i x %i",
+                SDL_BITSPERPIXEL(mode.format), mode.w, mode.h);
+    }
     //    PrimarySurface = SDL_GetWindowSurface(Window);
 
     if ( (Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)) == nullptr ) {
@@ -89,16 +109,16 @@ bool App::Init( ) {
     }
 
     // The Players
-    Texture *texture = TextureBank::Get("survivor2");
+    Texture *texture = TextureBank::Get("survivor-move_rifle_0");
     if ( texture != nullptr ) {
         mPlayerPtr = std::make_shared<Player>();
         mPlayerPtr->setWidth(texture->GetWidth());
         mPlayerPtr->setHeight((texture->GetHeight()));
     }
-    
+
 
     // The baddies
-    texture = TextureBank::Get("attacker2");
+    texture = TextureBank::Get("attacker_0");
     if ( texture != nullptr ) {
         mNPCPtr = std::make_shared<NPC>();
         mNPCPtr->setWidth(texture->GetWidth());
@@ -135,9 +155,9 @@ void App::Loop( ) {
 
         mPlayerPtr->handle_input(mGameController);
         mPlayerPtr->move();
-        mPlayerPtr->checkCollision(mNPCPtr->getCollider());
+        //mPlayerPtr->checkCollision(mNPCPtr->getCollider());
 
-        mPlayerPtr->updateBullets();                
+        mPlayerPtr->updateBullets();
     }
 }
 
@@ -146,34 +166,41 @@ void App::Loop( ) {
 void App::Render( ) {
     SDL_RenderClear(Renderer);
 
-    //std::cout << __FILE__ << " " << __LINE__ << std::endl;
-    
+    // std::cout << __FILE__ << " " << __LINE__ << std::endl;
+
     // TODO: need to loop through textures?
     Texture* texture = nullptr;
 
+    // Background
+    texture = TextureBank::Get("tile");
+    if ( texture != nullptr ) {
+        for ( int x = 0; x < GetWindowWidth(); x += texture->GetWidth() ) {
+            for ( int y = 0; y < GetWindowHeight(); y += texture->GetHeight() ) {
+                texture->Render(x,y);
+            }
+        }
+    }
+
     // Players
-    //std::string name = mPlayerPtr->getSpriteName();
-    //std::cout << "name  " << name << std::endl;
     texture = TextureBank::Get(mPlayerPtr->getSpriteName());
-    //std::cout << "mPlayerPtr->getSpriteName() " << mPlayerPtr->getSpriteName() << endl;
     if ( texture != nullptr ) {
 
-        texture->render(Renderer, mPlayerPtr->mPosX, mPlayerPtr->mPosY, 
+        texture->render(Renderer, mPlayerPtr->mPosX, mPlayerPtr->mPosY,
                 NULL, mPlayerPtr->mDirection);
     } else {
         logSDLError(std::cout, "App::Render");
     }
-        
+
     // NPCs
-    texture = TextureBank::Get(mNPCPtr->mSpriteName);
+    texture = TextureBank::Get(mNPCPtr->getSpriteName());
     if ( texture != nullptr ) {
 
-        texture->render(Renderer, mNPCPtr->mPosX, mNPCPtr->mPosY, 
+        texture->render(Renderer, mNPCPtr->mPosX, mNPCPtr->mPosY,
                 NULL, mNPCPtr->mDirection);
     } else {
         logSDLError(std::cout, "App::Render");
     }
-    
+
     // Bullets!
     // TODO: move the texture type into the Bullet class?  Just the identifier string bulletType
     texture = TextureBank::Get("bullet");
@@ -187,14 +214,23 @@ void App::Render( ) {
         logSDLError(std::cout, "App::Render");
     }
 
+    int width = 0;
+    int height = 0;
+    SDL_RenderGetLogicalSize(Renderer, &width, &height);
+    //std::cout << "SDL_RenderGetLogicalSize " << width << " " << height << std::endl;
 
+    //    SDL_RenderSetLogicalSize(Renderer, 1280, 720);
+    SDL_RenderSetLogicalSize(Renderer, 1920, 1080);
+
+    SDL_RenderGetLogicalSize(Renderer, &width, &height);
+    //std::cout << "SDL_RenderGetLogicalSize " << width << " " << height << std::endl;
     SDL_RenderPresent(Renderer);
 }
 
 //------------------------------------------------------------------------------
 
 void App::Cleanup( ) {
-    
+
     TextureBank::Cleanup();
 
     if ( Renderer ) {
@@ -206,7 +242,7 @@ void App::Cleanup( ) {
         SDL_DestroyWindow(Window);
         Window = NULL;
     }
-    
+
     // sounds?
 
     IMG_Quit();
@@ -261,11 +297,23 @@ App * App::GetInstance( ) {
 }
 
 int App::GetWindowWidth( ) {
-    return SCREEN_WIDTH;
+    int width;
+    int height;
+    SDL_RenderGetLogicalSize(GetInstance()->Renderer, &width, &height);
+
+    //return SCREEN_WIDTH;
+    return width;
 }
 
 int App::GetWindowHeight( ) {
-    return SCREEN_HEIGHT;
+    //return SCREEN_HEIGHT;
+
+    int width;
+    int height;
+    SDL_RenderGetLogicalSize(GetInstance()->Renderer, &width, &height);
+
+    //return SCREEN_WIDTH;
+    return height;
 }
 
 //==============================================================================

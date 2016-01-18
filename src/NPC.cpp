@@ -5,6 +5,7 @@
  */
 
 #include "NPC.h"
+#include "App.h"
 
 #include <iostream>
 
@@ -21,9 +22,20 @@ NPC::NPC( ) {
     mCollider.x = mPosX;
     mCollider.y = mPosY;
     
-    mSpriteName = "attacker2";    
+    mSpriteName = "attacker_";   
+    
+    frame = 0;
+
 }
 
 NPC::~NPC( ) {
     std::cout << "NPC destroyed" << std::endl;
+}
+
+std::string NPC::getSpriteName() {
+    return mSpriteName + std::to_string(frame);
+}
+
+void NPC::hit() {
+    frame = 1;
 }

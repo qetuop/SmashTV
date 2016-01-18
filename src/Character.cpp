@@ -14,6 +14,7 @@ static int doOnce = 1;
 
 Character::Character( ) {
     std::cout << "Character created" << std::endl;
+    hit = false;
    
 }
 

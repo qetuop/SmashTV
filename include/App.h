@@ -19,8 +19,8 @@ const int JOYSTICK_DEAD_ZONE = 8000;
 static const int SCREEN_WIDTH = 1280; //1024;
 static const int SCREEN_HEIGHT = 720;//768;
 
-const int PLAYER_WIDTH = 80;
-const int PLAYER_HEIGHT = 80;
+//const int PLAYER_WIDTH = 80;
+//const int PLAYER_HEIGHT = 80;
 
 const int BULLET_RATE = 50; // TODO: this will be modifable
 
@@ -55,7 +55,7 @@ private:
     Texture* TestTexture;
 
     std::shared_ptr<Player> mPlayerPtr;
-    std::shared_ptr<NPC> mNPCPtr;
+    //std::shared_ptr<NPC> mNPCPtr;
     
     //The sound effects that will be used
      Mix_Chunk *mPew = NULL;
@@ -83,15 +83,14 @@ private:
 
 public:
     int Execute(int argc, char* argv[]);
-
-public:
     SDL_Renderer* GetRenderer();
 
-public:
     static App* GetInstance();
 
     static int GetWindowWidth();
     static int GetWindowHeight();
+    
+    std::shared_ptr<NPC> mNPCPtr; // temp?
     
     void shoot();
 };

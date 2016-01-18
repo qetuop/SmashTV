@@ -47,16 +47,26 @@ Bullet::~Bullet() {
 
 bool Bullet::move() {
     bool isAlive = true;
+    
     mPosX += mVelX;
+    mCollider.x = mPosX;
+    
     mPosY += mVelY;
+    mCollider.y = mPosY;
 
     //std::cout << "Bullet::move::x = " << x << ", y = " << y << std::endl;
 
     // hits a wall
-    if ((mPosX <= 0) || (mPosX >= SCREEN_WIDTH)) {
+    if ((mPosX <= 0) || (mPosX >= App::GetWindowWidth())) {
         isAlive = false;
-    } else if ((mPosY <= 0) || (mPosY >= SCREEN_HEIGHT)) {
+    } else if ((mPosY <= 0) || (mPosY >= App::GetWindowHeight())) {
         isAlive = false;
+    }
+    
+    // should this be in the stuck objects logic?
+    if ( checkCollision(App::GetInstance()->mNPCPtr->getCollider())) {
+        std::cout << "BULLET HIT BADDIE" << std::endl;
+        App::GetInstance()->mNPCPtr->hit();
     }
 
     return isAlive;

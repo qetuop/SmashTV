@@ -191,7 +191,7 @@ void Event::OnExit() {
 }
 
 void Event::OnKeyDown(SDL_Keycode sym, Uint16 mod, Uint16 scancode) {
-    //printf("keycode:%d\tmod:%ho\tscancode:%ho pressed!\n", sym, mod, scancode);
+    printf("keycode:%d\tmod:%ho\tscancode:%ho pressed!\n", sym, mod, scancode);
 }
 
 void Event::OnKeyUp(SDL_Keycode sym, Uint16 mod, Uint16 scancode) {

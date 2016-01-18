@@ -12,7 +12,7 @@
 
 //static int doOnce = 1;
 const int FRAME_COUNT = 20;
-
+const int SPEED = 40;
 
 Player::Player( ) {
     std::cout << "Player created " << std::endl;
@@ -94,9 +94,9 @@ void Player::handle_input( SDL_GameController *controller ) {
     }// Adjust the velocity
     else {
         if ( StickLeftX < 0 ) {
-            mVelX = -PLAYER_WIDTH / 8;
+            mVelX = -getWidth() / SPEED;
         } else {
-            mVelX = PLAYER_WIDTH / 8;
+            mVelX = getWidth() / SPEED;
         }
     }
 
@@ -106,9 +106,9 @@ void Player::handle_input( SDL_GameController *controller ) {
     }// Adjust the velocity
     else {
         if ( StickLeftY < 0 ) {
-            mVelY = -PLAYER_HEIGHT / 8;
+            mVelY = -getHeight() / SPEED;
         } else {
-            mVelY = PLAYER_HEIGHT / 8;
+            mVelY = getHeight() / SPEED;
         }
     }
 
@@ -120,7 +120,10 @@ void Player::fireBullet( ) {
     // TODO: better way to get texture size then getting it each time?
     Texture *texture = TextureBank::Get("bullet");
     if ( texture != nullptr ){
-        auto bullet = std::make_shared<Bullet>(mPosX + PLAYER_WIDTH / 2, mPosY + PLAYER_HEIGHT / 2, mDirection);
+        //auto bullet = std::make_shared<Bullet>(mPosX + PLAYER_WIDTH / 2, mPosY + PLAYER_HEIGHT / 2, mDirection);
+        auto bullet = std::make_shared<Bullet>(mPosX, mPosY , mDirection);
+        bullet->setHeight(texture->GetHeight());
+        bullet->setWidth(texture->GetWidth());
         
         mBullets.push_back(bullet);
     }

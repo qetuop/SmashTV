@@ -38,9 +38,9 @@ bool MoveableObject::move( ) {
     //Move the dot left or right
     mPosX += mVelX;
     mCollider.x = mPosX;
-
+    std::cout << mPosX << " " << getWidth() << " " << mPosX+getWidth() << " " << SCREEN_WIDTH << std::endl;
     //If the dot went too far to the left or right
-    if ( (mPosX < 0) || (mPosX + getHeight() > SCREEN_WIDTH) ) {
+    if ( (mPosX < 0) || (mPosX + getWidth() > App::GetWindowWidth()) ) {
         //move back
         mPosX -= mVelX;
         mCollider.x = mPosX;
@@ -51,7 +51,7 @@ bool MoveableObject::move( ) {
     mCollider.y = mPosY;
 
     //If the dot went too far up or down
-    if ( (mPosY < 0) || (mPosY + getWidth() > SCREEN_HEIGHT) ) {
+    if ( (mPosY < 0) || (mPosY + getHeight() > App::GetWindowHeight()) ) {
         //move back
         mPosY -= mVelY;
         mCollider.y = mPosY;
@@ -88,24 +88,24 @@ SDL_Rect MoveableObject::getCollider() {
 bool MoveableObject::checkCollision( SDL_Rect targetRect ) {
     SDL_Rect result;
     SDL_bool val;
-    std::cout << "\ncheckCollision1: " << val << " " 
+    val = SDL_IntersectRect( &mCollider, &targetRect, &result );
+    
+    std::cout << "\ncheckCollision1: " << " " 
             << mCollider.x << " " << mCollider.y << " " 
             << mCollider.h << " " << mCollider.w 
             << std::endl;
     
-    std::cout << "checkCollision2: " << val << " " 
+    std::cout << "checkCollision2: " <<  " " 
             << targetRect.x << " " << targetRect.y << " " 
             << targetRect.h << " " << targetRect.w 
-            << std::endl;
-    
-    val = SDL_IntersectRect( &mCollider, &targetRect, &result );
+            << std::endl;       
     
     std::cout << "checkCollision3: " << val << " " 
             << result.x << " " << result.y << " " 
             << result.h << " " << result.w 
             << std::endl;
     
-    return 0;
+    return val;
 }
 
 std::string MoveableObject::getSpriteName() {

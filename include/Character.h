@@ -25,7 +25,8 @@ extern "C" {
 #endif
 
     class Character : public MoveableObject {
-    public:        
+    public:       
+        bool hit;
 
     public:
         Character();

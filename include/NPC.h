@@ -28,9 +28,16 @@ extern "C" {
     class NPC : public Character {
     public:
 
+        // current animation frame to draw
+        int frame;
+        
     public:
         NPC();
         ~NPC();
+        
+        void hit();
+        
+        virtual std::string getSpriteName();
     };
 
 
